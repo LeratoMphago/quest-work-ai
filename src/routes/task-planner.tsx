@@ -36,7 +36,7 @@ export const Route = createFileRoute("/task-planner")({
       },
     ],
   }),
-  component: TaskPlanner;
+  component: TaskPlanner,
 });
 
 function TaskPlanner() {
