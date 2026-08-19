@@ -47,13 +47,13 @@ function EmailGenerator() {
   const [recipient, setRecipient] = useState("");
   const [details, setDetails] = useState("");
   const [tone, setTone] = useState("Professional");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<{ topic?: string; recipient?: string }>({});
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
 
   const validate = () => {
-    const next: Record<string, string> = {};
+    const next: { topic?: string; recipient?: string } = {};
     if (!topic.trim()) next.topic = "Tell the assistant what the email is about.";
     if (!recipient.trim()) next.recipient = "Add who this email is intended for.";
     setErrors(next);
