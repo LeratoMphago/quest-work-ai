@@ -28,7 +28,10 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <nav className="flex flex-col gap-1" aria-label="Main navigation">
+    <nav className="flex flex-col gap-1.5" aria-label="Main navigation">
+      <p className="px-3 pb-1 text-[11px] font-semibold tracking-[0.14em] text-sidebar-foreground/40 uppercase">
+        Workspace
+      </p>
       {navItems.map(({ to, label, icon: Icon }) => {
         const active = pathname === to;
         return (
@@ -38,13 +41,25 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
             onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
               active
-                ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-[inset_3px_0_0_0_var(--sidebar-primary)]"
-                : "text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
+                ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-[inset_0_0_0_1px_var(--sidebar-border)]"
+                : "text-sidebar-foreground/70 hover:translate-x-0.5 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground",
             )}
           >
-            <Icon className="size-4 shrink-0" aria-hidden="true" />
+            {active && (
+              <span
+                className="absolute top-1/2 left-0 h-6 w-1 -translate-y-1/2 rounded-r-full bg-sidebar-primary"
+                aria-hidden="true"
+              />
+            )}
+            <Icon
+              className={cn(
+                "size-4 shrink-0 transition-colors",
+                active ? "text-sidebar-primary" : "text-sidebar-foreground/50",
+              )}
+              aria-hidden="true"
+            />
             {label}
           </Link>
         );
@@ -52,6 +67,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
     </nav>
   );
 }
+
 
 function Brand() {
   return (
