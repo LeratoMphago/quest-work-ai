@@ -28,7 +28,10 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <nav className="flex flex-col gap-1" aria-label="Main navigation">
+    <nav className="flex flex-col gap-1.5" aria-label="Main navigation">
+      <p className="px-3 pb-1 text-[11px] font-semibold tracking-[0.14em] text-sidebar-foreground/40 uppercase">
+        Workspace
+      </p>
       {navItems.map(({ to, label, icon: Icon }) => {
         const active = pathname === to;
         return (
@@ -38,13 +41,25 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
             onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
               active
-                ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-[inset_3px_0_0_0_var(--sidebar-primary)]"
-                : "text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
+                ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-[inset_0_0_0_1px_var(--sidebar-border)]"
+                : "text-sidebar-foreground/70 hover:translate-x-0.5 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground",
             )}
           >
-            <Icon className="size-4 shrink-0" aria-hidden="true" />
+            {active && (
+              <span
+                className="absolute top-1/2 left-0 h-6 w-1 -translate-y-1/2 rounded-r-full bg-sidebar-primary"
+                aria-hidden="true"
+              />
+            )}
+            <Icon
+              className={cn(
+                "size-4 shrink-0 transition-colors",
+                active ? "text-sidebar-primary" : "text-sidebar-foreground/50",
+              )}
+              aria-hidden="true"
+            />
             {label}
           </Link>
         );
@@ -52,6 +67,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
     </nav>
   );
 }
+
 
 function Brand() {
   return (
@@ -74,13 +90,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background lg:flex">
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-6 bg-sidebar p-4 lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-7 border-r border-sidebar-border/60 bg-sidebar p-4 lg:flex">
         <Brand />
         <NavLinks />
-        <div className="mt-auto rounded-lg bg-sidebar-accent/50 p-3 text-[11px] leading-relaxed text-sidebar-foreground/60">
+        <div className="mt-auto rounded-xl border border-sidebar-border/70 bg-sidebar-accent/40 p-3 text-[11px] leading-relaxed text-sidebar-foreground/60">
           Review all AI output before use. Avoid sharing confidential information.
         </div>
       </aside>
+
 
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-card/90 px-4 py-3 backdrop-blur lg:hidden">
@@ -101,9 +118,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="font-display text-sm font-semibold">AI Workplace Assistant</span>
         </header>
 
-        <main className="flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+        <main className="flex-1 px-4 py-7 sm:px-6 lg:px-10 lg:py-12">
           <div className="mx-auto w-full max-w-5xl">{children}</div>
         </main>
+
 
         <footer className="border-t border-border bg-surface px-4 py-5 sm:px-6 lg:px-10">
           <div className="mx-auto w-full max-w-5xl space-y-2">
