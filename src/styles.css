@@ -195,7 +195,34 @@
   box-shadow: var(--shadow-card);
 }
 
+@utility card-interactive {
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease;
+  &:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--brand) 35%, transparent);
+  }
+}
+
 @utility bg-gradient-brand {
   background-image: var(--gradient-brand);
 }
+
+@utility bg-gradient-hero {
+  background-image: var(--gradient-hero);
+}
+
+@utility bg-gradient-surface {
+  background-image: var(--gradient-surface);
+}
+
+@utility divider-glow {
+  height: 1px;
+  background-image: var(--gradient-line);
+}
+
 
