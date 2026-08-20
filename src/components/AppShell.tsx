@@ -90,13 +90,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background lg:flex">
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-6 bg-sidebar p-4 lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-7 border-r border-sidebar-border/60 bg-sidebar p-4 lg:flex">
         <Brand />
         <NavLinks />
-        <div className="mt-auto rounded-lg bg-sidebar-accent/50 p-3 text-[11px] leading-relaxed text-sidebar-foreground/60">
+        <div className="mt-auto rounded-xl border border-sidebar-border/70 bg-sidebar-accent/40 p-3 text-[11px] leading-relaxed text-sidebar-foreground/60">
           Review all AI output before use. Avoid sharing confidential information.
         </div>
       </aside>
+
 
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-card/90 px-4 py-3 backdrop-blur lg:hidden">
@@ -117,9 +118,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="font-display text-sm font-semibold">AI Workplace Assistant</span>
         </header>
 
-        <main className="flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+        <main className="flex-1 px-4 py-7 sm:px-6 lg:px-10 lg:py-12">
           <div className="mx-auto w-full max-w-5xl">{children}</div>
         </main>
+
 
         <footer className="border-t border-border bg-surface px-4 py-5 sm:px-6 lg:px-10">
           <div className="mx-auto w-full max-w-5xl space-y-2">
